@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { Footer } from "./components/Footer";
+import { Navbar } from "./components/Navbar";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <h1>Shopping Cart</h1>
+      <Navbar />
+      <Footer />
     </>
   );
 }
