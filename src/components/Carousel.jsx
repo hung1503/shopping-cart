@@ -39,18 +39,18 @@ export const Carousel = () => {
           />
         ))}
       </div>
-      <button
-        className="absolute left-5 top-5/6 bg-blue-500 text-white px-3 py-2 rounded-md"
+      {/* <button
+        className="absolute left-5 top-1/2 bg-blue-500 text-white px-3 py-2 rounded-md"
         onClick={prevSlide}
       >
         Previous
       </button>
       <button
-        className="absolute right-5 top-5/6 bg-blue-500 text-white px-3 py-2 rounded-md"
+        className="absolute right-5 top-1/2 bg-blue-500 text-white px-3 py-2 rounded-md"
         onClick={nextSlide}
       >
         Next
-      </button>
+      </button> */}
     </div>
   );
 };

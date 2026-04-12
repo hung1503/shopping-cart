@@ -5,12 +5,12 @@ import { ProductList } from "./components/ProductList";
 
 function App() {
   return (
-    <>
+    <div className="relative min-h-screen">
       <Navbar />
       <Carousel />
       <ProductList />
       <Footer />
-    </>
+    </div>
   );
 }
 
