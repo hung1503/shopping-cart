@@ -15,15 +15,27 @@ export const ProductList = () => {
       <div className="relative grid grid-cols-5 gap-4 mx-4">
         {products.map((product) => {
           return (
-            <div key={product.id} className="flex flex-col p-2 border rounded ">
-              <img
-                src={product.images[0]}
-                alt={product.title}
-                className="w-50% h-50% object-cover"
-              />
-              <p>{product.title}</p>
-              <p className="font-bold">${product.price}</p>
-              <p className="text-xs">{product.category?.name}</p>
+            <div
+              key={product.id}
+              className="flex flex-col m-2 p-2 w-60 h-100 rounded hover:shadow-lg transition-shadow duration-300 "
+            >
+              <div className="flex flex-col items-center mb-4">
+                <img
+                  src={product.images[0]}
+                  alt={product.title}
+                  className="w-45 h-45 bg-cover bg-center bg-no-repeat"
+                />
+              </div>
+              <div className="flex flex-col items-start m-4">
+                <p className="font-normal text-lg">{product.title}</p>
+                <p className="font-bold">${product.price}</p>
+                <p className="text-xs">{product.category?.name}</p>
+              </div>
+              <div className="flex justify-center items-center m-2">
+                <button className="rounded p-2 bg-red-500 text-white hover:bg-red-900 cursor-pointer transition-colors duration-300">
+                  Add to Cart
+                </button>
+              </div>
             </div>
           );
         })}
