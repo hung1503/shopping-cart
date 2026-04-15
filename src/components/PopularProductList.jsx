@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export const ProductList = () => {
+export const PopularProductList = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
