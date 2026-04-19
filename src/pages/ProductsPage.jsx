@@ -17,7 +17,7 @@ export const ProductsPage = () => {
           return (
             <div
               key={product.id}
-              className="flex flex-col m-2 p-2 w-60 h-100 rounded hover:shadow-lg transition-shadow duration-300 "
+              className="flex flex-col m-2 p-2 w-60 h-100 rounded hover:shadow-lg transition-shadow duration-300 group "
             >
               <div className="flex flex-col items-center mb-4">
                 <img
@@ -31,7 +31,7 @@ export const ProductsPage = () => {
                 <p className="font-bold">${product.price}</p>
                 <p className="text-xs">{product.category?.name}</p>
               </div>
-              <div className="flex justify-center items-center m-2">
+              <div className="flex justify-center items-center m-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <button className="rounded p-2 bg-red-500 text-white hover:bg-red-900 cursor-pointer transition-colors duration-300">
                   Add to Cart
                 </button>
