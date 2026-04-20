@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { Pagination } from "../components/Pagination";
 
 export const ProductsPage = () => {
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     fetch("https://api.escuelajs.co/api/v1/products")
@@ -40,6 +42,12 @@ export const ProductsPage = () => {
           );
         })}
       </div>
+      <Pagination
+        totalProducts={products.length}
+        productsPerPage={20}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };
