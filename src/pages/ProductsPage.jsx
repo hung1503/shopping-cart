@@ -4,6 +4,7 @@ import { Pagination } from "../components/Pagination";
 export const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(20);
 
   useEffect(() => {
     fetch("https://api.escuelajs.co/api/v1/products")
@@ -11,11 +12,15 @@ export const ProductsPage = () => {
       .then((data) => setProducts(data))
       .catch((err) => console.error(err));
   }, []);
+
+  const lastProductIndex = currentPage * productsPerPage;
+  const firstProductIndex = lastProductIndex - productsPerPage;
+  const currentProducts = products.slice(firstProductIndex, lastProductIndex);
   return (
     <div className="relative m-8 pb-25 flex flex-col items-center">
       <h2 className="text-3xl font-bold m-4">Products List</h2>
       <div className="relative grid grid-cols-5 gap-4 mx-4">
-        {products.map((product) => {
+        {currentProducts.map((product) => {
           return (
             <div
               key={product.id}
@@ -44,7 +49,7 @@ export const ProductsPage = () => {
       </div>
       <Pagination
         totalProducts={products.length}
-        productsPerPage={20}
+        productsPerPage={productsPerPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
