@@ -4,4 +4,4 @@
 ![React Router](https://img.shields.io/badge/React_Router-v.7.12-orange)
 ![TailwindCSS](https://img.shields.io/badge/Tailwindcss-v.4.12-blue)
 
-This is a simple e-commerce shopping website built by React
+This is a simple e-commerce shopping website built by React.
