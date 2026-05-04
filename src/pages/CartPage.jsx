@@ -22,8 +22,34 @@ export const CartPage = () => {
       setTotalPrice(0);
     }
   }, [cart]);
+
+  function handleIncrement(productId) {
+    let updatedCart = cart.map((item) => {
+      if (item.product.id === productId) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      }
+      return item;
+    });
+    setCart(updatedCart);
+  }
+
+  function handleDecrement(productId) {
+    let updatedCart = cart.map((item) => {
+      if (item.product.id === productId) {
+        return {
+          ...item,
+          quantity: item.quantity - 1,
+        };
+      }
+      return item;
+    });
+    setCart(updatedCart);
+  }
   return (
-    <div className="flex flex-row justify-between p-10 gap-4">
+    <div className="flex flex-row justify-around p-10 gap-4">
       <div>
         <h1>In your cart</h1>
         {cart.length === 0 ? (
@@ -41,7 +67,19 @@ export const CartPage = () => {
               </div>
               <div>
                 <p>Quantity</p>
+                <button
+                  className="border border-gray-600 px-2 cursor-pointer"
+                  onClick={() => handleIncrement(item.product.id)}
+                >
+                  +
+                </button>
                 <p>{item.quantity}</p>
+                <button
+                  className="border border-gray-600 px-2 cursor-pointer"
+                  onClick={() => handleDecrement(item.product.id)}
+                >
+                  -
+                </button>
               </div>
             </div>
           ))
