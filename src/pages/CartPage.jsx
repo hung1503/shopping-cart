@@ -1,7 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const CartPage = () => {
   const [cart, setCart] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+      console.log(JSON.parse(storedCart));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      const price = cart.reduce((total, item) => {
+        total = total + item.product.price * item.quantity;
+        return total;
+      }, 0);
+      setTotalPrice(price);
+    } else {
+      setTotalPrice(0);
+    }
+  }, [cart]);
   return (
     <div className="flex flex-row justify-between p-10 gap-4">
       <div>
@@ -10,18 +30,18 @@ export const CartPage = () => {
           <p>Your cart is empty</p>
         ) : (
           cart.map((item, index) => (
-            <div key={index}>
+            <div className="flex flex-row justify-between gap-32" key={index}>
               <div>
-                <h3>{item.name}</h3>
+                <h3>{item.product.title}</h3>
                 <img
-                  src={item.images[0]}
-                  alt={item.title}
-                  className="w-50 h-50 bg-cover bg-center bg-no-repeat"
+                  src={item.product.images[0]}
+                  alt={item.product.title}
+                  className="w-20 h-20 bg-cover bg-center bg-no-repeat"
                 />
               </div>
               <div>
                 <p>Quantity</p>
-                <p>{item.price}</p>
+                <p>{item.quantity}</p>
               </div>
             </div>
           ))
@@ -29,6 +49,7 @@ export const CartPage = () => {
       </div>
       <div>
         <h1>Your total order</h1>
+        <p>Total price: {totalPrice}</p>
       </div>
     </div>
   );

@@ -2,13 +2,45 @@ import React, { useEffect, useState } from "react";
 
 export const PopularProductList = () => {
   const [products, setProducts] = useState([]);
-
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
+    const initialCart = savedCart ? JSON.parse(savedCart) : [];
+    return initialCart;
+  });
   useEffect(() => {
     fetch("https://api.escuelajs.co/api/v1/products?offset=0&limit=10")
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error(err));
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+  const addToCart = (product) => {
+    let productsInCart = {
+      product: product,
+      quantity: 1,
+    };
+    let existingItem = cart.find((item) => item.product.id === product.id);
+
+    if (existingItem) {
+      let updatedCart = cart.map((item) => {
+        if (item.product.id === product.id) {
+          let totalQuantity = item.quantity + 1;
+          return {
+            ...item,
+            quantity: totalQuantity,
+          };
+        } else {
+          return item;
+        }
+      });
+      setCart(updatedCart);
+    } else {
+      setCart([...cart, productsInCart]);
+    }
+  };
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -35,7 +67,10 @@ export const PopularProductList = () => {
                   <p className="font-bold">${product.price}</p>
                 </div>
                 <div className="flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="rounded p-2 bg-red-500 text-white hover:bg-red-900 cursor-pointer transition-colors duration-300">
+                  <button
+                    className="rounded p-2 bg-red-500 text-white hover:bg-red-900 cursor-pointer transition-colors duration-300"
+                    onClick={() => addToCart(product)}
+                  >
                     Add to Cart
                   </button>
                 </div>
