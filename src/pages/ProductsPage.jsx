@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Pagination } from "../components/Pagination";
+import { Link } from "react-router-dom";
 
 export const ProductsPage = () => {
   const [products, setProducts] = useState([]);
@@ -56,33 +57,35 @@ export const ProductsPage = () => {
         <div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-8">
           {currentProducts.map((product) => {
             return (
-              <div
-                key={product.id}
-                className="flex flex-col m-2 p-2 w-60 h-100 rounded hover:shadow-lg transition-shadow duration-300 group "
-              >
-                <div className="flex flex-col items-center mb-4">
-                  <img
-                    src={product.images[0]}
-                    alt={product.title}
-                    className="w-50 h-50 bg-cover bg-center bg-no-repeat"
-                  />
-                </div>
-                <div className="flex justify-between m-4">
-                  <div>
-                    <p className="font-normal text-lg">{product.title}</p>
-                    <p className="text-xs">{product.category?.name}</p>
+              <Link to={`/products/${product.id}`} key={product.id}>
+                <div
+                  key={product.id}
+                  className="flex flex-col m-2 p-2 w-60 h-100 rounded hover:shadow-lg transition-shadow duration-300 group "
+                >
+                  <div className="flex flex-col items-center mb-4">
+                    <img
+                      src={product.images[0]}
+                      alt={product.title}
+                      className="w-50 h-50 bg-cover bg-center bg-no-repeat"
+                    />
                   </div>
-                  <p className="font-bold">${product.price}</p>
+                  <div className="flex justify-between m-4">
+                    <div>
+                      <p className="font-normal text-lg">{product.title}</p>
+                      <p className="text-xs">{product.category?.name}</p>
+                    </div>
+                    <p className="font-bold">${product.price}</p>
+                  </div>
+                  <div className="flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <button
+                      className="rounded p-2 bg-red-500 text-white hover:bg-red-900 cursor-pointer transition-colors duration-300"
+                      onClick={() => addToCart(product)}
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
-                <div className="flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button
-                    className="rounded p-2 bg-red-500 text-white hover:bg-red-900 cursor-pointer transition-colors duration-300"
-                    onClick={() => addToCart(product)}
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
+              </Link>
             );
           })}
         </div>
