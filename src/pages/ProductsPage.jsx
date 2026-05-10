@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Pagination } from "../components/Pagination";
 import { Link } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext";
 
 export const ProductsPage = () => {
-  const [products, setProducts] = useState([]);
+  const { products, addToCart } = useContext(ShopContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(20);
   const [cart, setCart] = useState(() => {
@@ -11,13 +12,6 @@ export const ProductsPage = () => {
     const initialCart = savedCart ? JSON.parse(savedCart) : [];
     return initialCart;
   });
-
-  useEffect(() => {
-    fetch("https://api.escuelajs.co/api/v1/products")
-      .then((res) => res.json())
-      .then((data) => setProducts(data))
-      .catch((err) => console.error(err));
-  }, []);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
