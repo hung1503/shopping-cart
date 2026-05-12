@@ -56,31 +56,43 @@ export const CartPage = () => {
           <p>Your cart is empty</p>
         ) : (
           cart.map((item, index) => (
-            <div className="flex flex-row justify-between gap-32" key={index}>
-              <div>
-                <h3>{item.product.title}</h3>
-                <img
-                  src={item.product.images[0]}
-                  alt={item.product.title}
-                  className="w-20 h-20 bg-cover bg-center bg-no-repeat"
-                />
+            <div>
+              <div className="flex flex-row justify-between gap-32" key={index}>
+                <div>
+                  <h3 className="font-medium">{item.product.title}</h3>
+                  <img
+                    src={item.product.images[0]}
+                    alt={item.product.title}
+                    className="w-20 h-20 bg-cover bg-center bg-no-repeat"
+                  />
+                </div>
+                <div>
+                  <p>Quantity</p>
+                  <button
+                    className="border border-gray-600 px-2 cursor-pointer"
+                    onClick={() => handleIncrement(item.product.id)}
+                  >
+                    +
+                  </button>
+                  <p>{item.quantity}</p>
+                  <button
+                    className="border border-gray-600 px-2 cursor-pointer"
+                    onClick={() => handleDecrement(item.product.id)}
+                  >
+                    -
+                  </button>
+                </div>
+                <div>
+                  <p>Price: ${item.product.price * item.quantity}</p>
+                  <button
+                    className="border border-gray-600 px-2 cursor-pointer"
+                    onClick={() => handleRemove(item.product.id)}
+                  >
+                    &#128465;
+                  </button>
+                </div>
               </div>
-              <div>
-                <p>Quantity</p>
-                <button
-                  className="border border-gray-600 px-2 cursor-pointer"
-                  onClick={() => handleIncrement(item.product.id)}
-                >
-                  +
-                </button>
-                <p>{item.quantity}</p>
-                <button
-                  className="border border-gray-600 px-2 cursor-pointer"
-                  onClick={() => handleDecrement(item.product.id)}
-                >
-                  -
-                </button>
-              </div>
+              <br />
             </div>
           ))
         )}
