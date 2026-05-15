@@ -1,47 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext";
 
 export const PopularProductList = () => {
-  const [products, setProducts] = useState([]);
+  const { products, addToCart } = useContext(ShopContext);
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem("cart");
     const initialCart = savedCart ? JSON.parse(savedCart) : [];
     return initialCart;
   });
-  useEffect(() => {
-    fetch("https://api.escuelajs.co/api/v1/products?offset=0&limit=10")
-      .then((res) => res.json())
-      .then((data) => setProducts(data))
-      .catch((err) => console.error(err));
-  }, []);
-
+  const popularProducts = products.slice(0, 5);
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
-  const addToCart = (product) => {
-    let productsInCart = {
-      product: product,
-      quantity: 1,
-    };
-    let existingItem = cart.find((item) => item.product.id === product.id);
 
-    if (existingItem) {
-      let updatedCart = cart.map((item) => {
-        if (item.product.id === product.id) {
-          let totalQuantity = item.quantity + 1;
-          return {
-            ...item,
-            quantity: totalQuantity,
-          };
-        } else {
-          return item;
-        }
-      });
-      setCart(updatedCart);
-    } else {
-      setCart([...cart, productsInCart]);
-    }
-  };
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
